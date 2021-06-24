@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import cz.bald.sget.mobile.MainActivity
 import cz.bald.sget.mobile.R
 import cz.bald.sget.mobile.ui.listener.FragmentChangeListener
 import cz.bald.sget.mobile.ui.listener.SetupListener
+import cz.bald.sget.mobile.ui.test.TestActivity
 
 class SetupActivity : AppCompatActivity(), FragmentChangeListener,
   SetupListener {
@@ -34,7 +34,7 @@ class SetupActivity : AppCompatActivity(), FragmentChangeListener,
   }
 
   override fun finishSetup(setting: String) {
-    val intent = Intent(this, MainActivity::class.java)
+    val intent = Intent(this, TestActivity::class.java)
     intent.putExtra(ARG_SETUP, setting)
     startActivity(intent)
   }

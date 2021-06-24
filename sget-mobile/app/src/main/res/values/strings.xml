@@ -11,4 +11,16 @@
 
     <string name="review_fragment_selection">Selection:</string>
     <string name="review_fragment_start">Start test</string>
+
+    <string name="test_section_question_button">Back To Question</string>
+
+    <string name="test_question_test_question_number">Question:</string>
+    <string name="test_question_test_back_button">Previous</string>
+    <string name="test_question_test_next_button">Next</string>
+    <string name="test_question_test_section_button">Section</string>
+
+    <string name="test_question_open_question_number">Question:</string>
+    <string name="test_question_open_back_button">Previous</string>
+    <string name="test_question_open_next_button">Next</string>
+    <string name="test_question_open_section_button">Section</string>
 </resources>
