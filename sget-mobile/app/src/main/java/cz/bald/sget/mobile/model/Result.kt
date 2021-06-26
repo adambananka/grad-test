@@ -1,12 +1,12 @@
 package cz.bald.sget.mobile.model
 
-import java.time.LocalDate
+import java.util.Date
 
 data class Result(
   val test: String,
-  val date: LocalDate,
+  var date: Date,
   val questions: Int,
-  val correctQuestions: Int,
-  val points: Int,
+  var correctQuestions: Int,
+  var points: Int,
   val maxPoints: Int
 )
