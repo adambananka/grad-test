@@ -26,14 +26,12 @@ class SetupActivity : AppCompatActivity(), FragmentChangeListener,
 
     val setting = TestSetting(TestType.MATURITA, Language.SLOVAK, CzechSubject.CZECH, 0)
     val fragment = StartFragment(setting)
-    supportFragmentManager.beginTransaction()
-      .replace(R.id.fragment_container, fragment)
-      .commit()
+    swapFragment(fragment, false)
   }
 
   override fun swapFragment(newFragment: Fragment, stack: Boolean) {
     supportFragmentManager.beginTransaction()
-      .replace(R.id.fragment_container, newFragment)
+      .replace(R.id.setup_fragment_container, newFragment)
       .addToBackStack(newFragment.toString())
       .commit()
   }
