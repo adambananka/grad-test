@@ -24,9 +24,11 @@ class SetupActivity : AppCompatActivity(), FragmentChangeListener,
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_setup)
 
-    val setting = TestSetting(TestType.MATURITA, Language.SLOVAK, CzechSubject.CZECH, 0)
-    val fragment = StartFragment(setting)
-    swapFragment(fragment, false)
+    if (savedInstanceState == null) {
+      val setting = TestSetting(TestType.MATURITA, Language.SLOVAK, CzechSubject.CZECH, 0)
+      val fragment = StartFragment(setting)
+      swapFragment(fragment, false)
+    }
   }
 
   override fun swapFragment(newFragment: Fragment, stack: Boolean) {
