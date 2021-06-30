@@ -1,23 +1,21 @@
 package cz.bald.sget.mobile.database.dao
 
-import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Update
 
-@Dao
 interface AbstractDao<T> {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insert(item: T)
+  suspend fun insert(item: T): Long
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insertAll(vararg items: T)
+  suspend fun insertAll(vararg items: T): List<Long>
 
   @Update
-  fun update(item: T)
+  suspend fun update(item: T)
 
   @Delete
-  fun delete(item: T)
+  suspend fun delete(item: T)
 }

@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import cz.bald.sget.mobile.R
-import cz.bald.sget.mobile.model.enum.CzechSubject
-import cz.bald.sget.mobile.model.enum.Language
-import cz.bald.sget.mobile.model.enum.SlovakSubject
+import cz.bald.sget.mobile.model.enums.CzechSubject
+import cz.bald.sget.mobile.model.enums.Language
+import cz.bald.sget.mobile.model.enums.SlovakSubject
 import cz.bald.sget.mobile.model.TestSetting
-import cz.bald.sget.mobile.model.enum.Subject
+import cz.bald.sget.mobile.model.enums.Subject
 import cz.bald.sget.mobile.ui.listener.FragmentChangeListener
 import kotlinx.android.synthetic.main.fragment_setup_language.view.*
 

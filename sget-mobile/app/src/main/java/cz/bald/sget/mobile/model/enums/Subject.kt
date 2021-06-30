@@ -1,4 +1,4 @@
-package cz.bald.sget.mobile.model.enum
+package cz.bald.sget.mobile.model.enums
 
 import android.os.Parcelable
 

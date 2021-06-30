@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import cz.bald.sget.mobile.R
 import cz.bald.sget.mobile.model.TestSetting
-import cz.bald.sget.mobile.model.enum.CzechSubject
-import cz.bald.sget.mobile.model.enum.Language
-import cz.bald.sget.mobile.model.enum.TestType
+import cz.bald.sget.mobile.model.enums.CzechSubject
+import cz.bald.sget.mobile.model.enums.Language
+import cz.bald.sget.mobile.model.enums.TestType
 import cz.bald.sget.mobile.ui.listener.FragmentChangeListener
 import cz.bald.sget.mobile.ui.listener.SetupListener
 import cz.bald.sget.mobile.ui.test.TestActivity
