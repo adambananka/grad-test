@@ -22,6 +22,8 @@
       </intent-filter>
     </activity>
     <activity android:name=".ui.test.TestActivity" />
+    <activity android:name=".ui.result.ResultActivity"
+        android:theme="@style/SetupActivityTheme"/>
   </application>
 
 </manifest>

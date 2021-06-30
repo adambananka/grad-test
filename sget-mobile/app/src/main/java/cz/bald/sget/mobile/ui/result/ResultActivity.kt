@@ -1,67 +1,45 @@
-package cz.bald.sget.mobile.ui.setup
+package cz.bald.sget.mobile.ui.result
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import cz.bald.sget.mobile.R
-import cz.bald.sget.mobile.model.TestSetting
-import cz.bald.sget.mobile.model.enums.CzechSubject
-import cz.bald.sget.mobile.model.enums.Language
-import cz.bald.sget.mobile.model.enums.TestType
-import cz.bald.sget.mobile.ui.listener.FragmentChangeListener
-import cz.bald.sget.mobile.ui.listener.SetupListener
-import cz.bald.sget.mobile.ui.result.ResultActivity
-import cz.bald.sget.mobile.ui.test.TestActivity
+import cz.bald.sget.mobile.database.SgetDatabase
+import cz.bald.sget.mobile.model.Result
+import cz.bald.sget.mobile.ui.setup.SetupActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class SetupActivity : AppCompatActivity(), FragmentChangeListener,
-  SetupListener {
-
-  companion object {
-    const val ARG_SETUP = "arg_setup"
-  }
+class ResultActivity : AppCompatActivity() {
 
   private lateinit var drawerLayout: DrawerLayout
   private lateinit var toggle: ActionBarDrawerToggle
 
+  private lateinit var results: List<Result>
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_setup)
-
+    setContentView(R.layout.activity_result)
     setupNavDrawer()
     if (savedInstanceState == null) {
-      val setting = TestSetting(TestType.MATURITA, Language.SLOVAK, CzechSubject.CZECH, 0)
-      val fragment = StartFragment(setting)
-      swapFragment(fragment, false)
+      retrieveResultsAndShow()
     }
-  }
-
-  override fun swapFragment(newFragment: Fragment, stack: Boolean) {
-    val transaction = supportFragmentManager.beginTransaction()
-      .replace(R.id.setup_fragment_container, newFragment)
-    if (stack) {
-      transaction.addToBackStack(newFragment.toString())
-    }
-    transaction.commit()
-  }
-
-  override fun finishSetup(setting: TestSetting) {
-    val intent = Intent(this, TestActivity::class.java)
-    intent.putExtra(ARG_SETUP, setting)
-    startActivity(intent)
   }
 
   private fun setupNavDrawer() {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     setSupportActionBar(toolbar)
-    drawerLayout = findViewById(R.id.setup_drawer_layout)
-    val navView = findViewById<NavigationView>(R.id.setup_nav_view)
+    drawerLayout = findViewById(R.id.result_drawer_layout)
+    val navView = findViewById<NavigationView>(R.id.result_nav_view)
 
     toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_menu_open, R.string.nav_menu_close)
     drawerLayout.addDrawerListener(toggle)
@@ -79,6 +57,18 @@ class SetupActivity : AppCompatActivity(), FragmentChangeListener,
       drawerLayout.closeDrawer(GravityCompat.START)
       finish()
       true
+    }
+  }
+
+  private fun retrieveResultsAndShow() {
+    CoroutineScope(Dispatchers.IO).launch {
+      results = SgetDatabase.getInstance(this@ResultActivity).resultDao().getAll()
+    }.invokeOnCompletion {
+      Handler(Looper.getMainLooper()).post {
+        supportFragmentManager.beginTransaction()
+          .replace(R.id.result_fragment_container, ResultListFragment(results))
+          .commit()
+      }
     }
   }
 
