@@ -1,60 +1,68 @@
 <resources>
-    <!--    Application general -->
-    <string name="app_name">Grad test</string>
-    <string name="nav_menu_maturita">Maturita</string>
-    <string name="nav_menu_results">Results</string>
-    <string name="nav_menu_open">open</string>
-    <string name="nav_menu_close">close</string>
+  <!--    Application general -->
+  <string name="app_name">Grad test</string>
+  <string name="nav_menu_maturita">Maturita</string>
+  <string name="nav_menu_results">Results</string>
+  <string name="nav_menu_open">open</string>
+  <string name="nav_menu_close">close</string>
+  <string name="data_load">Loading data…</string>
 
-    <!--    Setup Activity general -->
-    <string name="setup_selection_label">Selection:</string>
+  <!--    Setup Activity general -->
+  <string name="setup_selection_label">Selection:</string>
 
-    <!--    Start Fragment -->
-    <string name="setup_start_start_button">Select test</string>
+  <!--    Start Fragment -->
+  <string name="setup_start_start_button">Select test</string>
 
-    <!--    Language Fragment -->
+  <!--    Language Fragment -->
+  <string name="setup_language_title">Select Language</string>
 
-    <!--    Subject Fragment -->
-    <string name="setup_subject_selection_value">%1$s - %2$s</string>
+  <!--    Subject Fragment -->
+  <string name="setup_subject_title">Select Subject</string>
 
-    <!--    Year Fragment -->
-    <string name="setup_year_selection_value">%1$s - %2$s - %3$s</string>
+  <!--    Year Fragment -->
+  <string name="setup_year_title">Select Year</string>
 
-    <!--    Review Fragment -->
-    <string name="setup_review_selection_value">%1$s - %2$s - %3$s - %4$d</string>
-    <string name="setup_review_start_button">Start test</string>
+  <!--    Review Fragment -->
+  <string name="setup_review_title">Summary</string>
+  <string name="setup_review_type">Type:</string>
+  <string name="setup_review_language">Language:</string>
+  <string name="setup_review_subject">Subject:</string>
+  <string name="setup_review_year">Year:</string>
+  <string name="setup_review_start_button">Start test</string>
 
-    <!--    Test Activity general -->
+  <!--    Test Activity general -->
 
-    <!--    Question Fragment - general -->
-    <string name="test_back_button">Previous</string>
-    <string name="test_next_button">Next</string>
-    <string name="test_finish_button">Finish</string>
-    <string name="test_question_number">Questions:</string>
-    <string name="test_question_number_value">%1$d / %2$d</string>
+  <!--    Question Fragment - general -->
+  <string name="test_back_button">Previous</string>
+  <string name="test_next_button">Next</string>
+  <string name="test_finish_button">Finish</string>
+  <string name="test_question_number">Question: %1$d / %2$d</string>
 
-    <!--    Question Fragment - Section -->
-    <string name="test_section_question_button">Back To Question</string>
+  <!--    Question Fragment - Section -->
+  <string name="test_section_title">Section %1$d</string>
+  <string name="test_section_question_button">Back To Question</string>
 
-    <!--    Question Fragment - Test question -->
-    <string name="test_question_test_section_button">Section</string>
+  <!--    Question Fragment - Test question -->
+  <string name="test_question_test_section_button">Section</string>
 
-    <!--    Question Fragment - Open question -->
-    <string name="test_question_open_section_button">Section</string>
+  <!--    Question Fragment - Open question -->
+  <string name="test_question_open_section_button">Section</string>
 
-    <!--    Result Fragment -->
-    <string name="test_result_questions_value">%1$d / %2$d</string>
-    <string name="test_result_points">Points:</string>
-    <string name="test_result_points_value">%1$d / %2$d</string>
-    <string name="test_result_percentage">Percentage:</string>
-    <string name="test_result_percentage_value">%1$.2f</string>
-    <string name="test_result_finish_button">Close</string>
+  <!--    Result Fragment -->
+  <string name="test_result_title">Result</string>
+  <string name="test_result_questions">Questions:</string>
+  <string name="test_result_questions_value">%1$d / %2$d</string>
+  <string name="test_result_points">Points:</string>
+  <string name="test_result_points_value">%1$d / %2$d</string>
+  <string name="test_result_percentage">Percentage:</string>
+  <string name="test_result_percentage_value">%1$.2f</string>
+  <string name="test_result_finish_button">Close</string>
 
-    <!--    Result Activity general -->
-    <string name="result_list_no_results">No results yet! :)</string>
-    <string name="result_list_setting_header">%1$s %2$d</string>
-    <string name="result_list_setting_bottom">%1$s - %2$s</string>
-    <string name="result_list_questions">Questions: %1$d / %2$d</string>
-    <string name="result_list_points">Points: %1$d / %2$d</string>
-    <string name="result_list_percentage">Percentage: %1$.2f</string>
+  <!--    Result Activity general -->
+  <string name="result_list_no_results">No results yet! :)</string>
+  <string name="result_list_setting_header">%1$s %2$d</string>
+  <string name="result_list_setting_bottom">%1$s - %2$s</string>
+  <string name="result_list_questions">Questions: %1$d / %2$d</string>
+  <string name="result_list_points">Points: %1$d / %2$d</string>
+  <string name="result_list_percentage">Percentage: %1$.2f</string>
 </resources>

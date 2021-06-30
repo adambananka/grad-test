@@ -1,3 +1,68 @@
 <resources>
+  <!--    Application general -->
+  <string name="app_name">Grad test</string>
+  <string name="nav_menu_maturita">Maturita</string>
+  <string name="nav_menu_results">Výsledky</string>
+  <string name="nav_menu_open">otvoriť</string>
+  <string name="nav_menu_close">zatvoriť</string>
+  <string name="data_load">Načítavam dáta…</string>
 
+  <!--    Setup Activity general -->
+  <string name="setup_selection_label">Výber:</string>
+
+  <!--    Start Fragment -->
+  <string name="setup_start_start_button">Vyber test</string>
+
+  <!--    Language Fragment -->
+  <string name="setup_language_title">Vyber jazyk</string>
+
+  <!--    Subject Fragment -->
+  <string name="setup_subject_title">Vyber predmet</string>
+
+  <!--    Year Fragment -->
+  <string name="setup_year_title">Vyber rok</string>
+
+  <!--    Review Fragment -->
+  <string name="setup_review_title">Zhrnutie</string>
+  <string name="setup_review_type">Typ:</string>
+  <string name="setup_review_language">Jazyk:</string>
+  <string name="setup_review_subject">Predmet:</string>
+  <string name="setup_review_year">Rok:</string>
+  <string name="setup_review_start_button">Spustiť test</string>
+
+  <!--    Test Activity general -->
+
+  <!--    Question Fragment - general -->
+  <string name="test_back_button">Zpäť</string>
+  <string name="test_next_button">Ďalej</string>
+  <string name="test_finish_button">Koniec</string>
+  <string name="test_question_number">Otázka: %1$d / %2$d</string>
+
+  <!--    Question Fragment - Section -->
+  <string name="test_section_title">Sekcia %1$d</string>
+  <string name="test_section_question_button">Naspät na otázku</string>
+
+  <!--    Question Fragment - Test question -->
+  <string name="test_question_test_section_button">Sekcia</string>
+
+  <!--    Question Fragment - Open question -->
+  <string name="test_question_open_section_button">Sekcia</string>
+
+  <!--    Result Fragment -->
+  <string name="test_result_title">Výsledok</string>
+  <string name="test_result_questions">Otázky:</string>
+  <string name="test_result_questions_value">%1$d / %2$d</string>
+  <string name="test_result_points">Body:</string>
+  <string name="test_result_points_value">%1$d / %2$d</string>
+  <string name="test_result_percentage">Percentá:</string>
+  <string name="test_result_percentage_value">%1$.2f</string>
+  <string name="test_result_finish_button">Zavrieť</string>
+
+  <!--    Result Activity general -->
+  <string name="result_list_no_results">Zatiaľ žiadne výsledky! :)</string>
+  <string name="result_list_setting_header">%1$s %2$d</string>
+  <string name="result_list_setting_bottom">%1$s - %2$s</string>
+  <string name="result_list_questions">Otázky: %1$d / %2$d</string>
+  <string name="result_list_points">Body: %1$d / %2$d</string>
+  <string name="result_list_percentage">Percentá: %1$.2f</string>
 </resources>
