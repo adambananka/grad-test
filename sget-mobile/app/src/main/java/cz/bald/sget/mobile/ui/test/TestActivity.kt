@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import cz.bald.sget.mobile.R
@@ -17,6 +16,7 @@ import cz.bald.sget.mobile.model.REQUEST_STORAGE_PERMISSION
 import cz.bald.sget.mobile.model.Test
 import cz.bald.sget.mobile.model.TestSetting
 import cz.bald.sget.mobile.service.DownloadService
+import cz.bald.sget.mobile.ui.common.LoadPlaceholderFragment
 import cz.bald.sget.mobile.ui.listener.FragmentChangeListener
 import cz.bald.sget.mobile.ui.setup.SetupActivity
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +28,7 @@ class TestActivity : AppCompatActivity(), FragmentChangeListener {
 
   private lateinit var setting : TestSetting
   private lateinit var fragment : QuestionFragment
+  private var receiverRegistered = false
   private val downloadService = DownloadService()
   private var downloadID: Long = -100
   private var downloadComplete : Boolean = false
@@ -37,11 +38,12 @@ class TestActivity : AppCompatActivity(), FragmentChangeListener {
     setContentView(R.layout.activity_test)
 
     if (savedInstanceState == null) {
+      swapFragment(LoadPlaceholderFragment(), false)
       setting = intent.getParcelableExtra(SetupActivity.ARG_SETUP)
-      Toast.makeText(this, setting.toString(), Toast.LENGTH_LONG).show()
       if (downloadService.requestStoragePermission(this)) {
         downloadFile()
       }
+      receiverRegistered = true
       registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
   }
@@ -73,7 +75,7 @@ class TestActivity : AppCompatActivity(), FragmentChangeListener {
 
   override fun onDestroy() {
     super.onDestroy()
-    unregisterReceiver(onDownloadComplete)
+    if (receiverRegistered) unregisterReceiver(onDownloadComplete)
   }
 
   private val onDownloadComplete: BroadcastReceiver = object : BroadcastReceiver() {
