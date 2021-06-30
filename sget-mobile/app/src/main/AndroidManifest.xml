@@ -12,7 +12,8 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/Theme.GradTest">
-    <activity android:name=".ui.setup.SetupActivity">
+    <activity android:name=".ui.setup.SetupActivity"
+        android:theme="@style/SetupActivityTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
