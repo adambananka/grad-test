@@ -17,6 +17,10 @@ class JsonConvertManager {
       .registerTypeAdapter(CzechSubject::class.java, SubjectInterfaceAdapter())
       .create()
 
+    fun convertTestToJson(test: Test): String {
+      return converter.toJson(test)
+    }
+
     fun convertJsonToTest(jsonReader: Reader): Test {
       val result = convertJsonToTest(jsonReader.readText())
       jsonReader.close()
