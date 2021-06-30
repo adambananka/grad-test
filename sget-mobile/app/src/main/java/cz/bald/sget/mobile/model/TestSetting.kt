@@ -1,9 +1,9 @@
 package cz.bald.sget.mobile.model
 
 import android.os.Parcelable
-import cz.bald.sget.mobile.model.enum.Language
-import cz.bald.sget.mobile.model.enum.Subject
-import cz.bald.sget.mobile.model.enum.TestType
+import cz.bald.sget.mobile.model.enums.Language
+import cz.bald.sget.mobile.model.enums.Subject
+import cz.bald.sget.mobile.model.enums.TestType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

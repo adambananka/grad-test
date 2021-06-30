@@ -1,6 +1,6 @@
 package cz.bald.sget.mobile.model
 
-import cz.bald.sget.mobile.model.enum.QuestionType
+import cz.bald.sget.mobile.model.enums.QuestionType
 
 data class Question(
   val number: Int,

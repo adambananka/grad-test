@@ -9,11 +9,9 @@ import cz.bald.sget.mobile.model.Question
 import cz.bald.sget.mobile.model.Section
 import cz.bald.sget.mobile.model.Test
 import cz.bald.sget.mobile.model.TestSetting
-import cz.bald.sget.mobile.model.Result
-import cz.bald.sget.mobile.model.enum.QuestionType
+import cz.bald.sget.mobile.model.enums.QuestionType
 import cz.bald.sget.mobile.ui.listener.FragmentChangeListener
 import cz.bald.sget.mobile.ui.setup.SetupActivity
-import java.util.Date
 
 class TestActivity : AppCompatActivity(), FragmentChangeListener {
 
@@ -59,8 +57,7 @@ class TestActivity : AppCompatActivity(), FragmentChangeListener {
       val q6 = q3.copy(number = 6)
       val q7 = q1.copy(number = 7)
       val s2 = s1.copy(number = 2, questionCount = 3, maxPoints = 3, questions = listOf(q5, q6, q7))
-      val test = Test(setting, listOf(s1, s2), 7, 7, 100,
-        Result(setting.toString(), Date(), 7, 0, 0, 7))
+      val test = Test(setting, listOf(s1, s2), 7, 7, 100, null)
 
       val fragment = QuestionFragment(test, 0, QuestionFragment.NO_QUESTION, QuestionFragment.NO_QUESTION)
       swapFragment(fragment, true)
