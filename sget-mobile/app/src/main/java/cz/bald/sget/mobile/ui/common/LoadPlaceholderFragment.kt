@@ -9,10 +9,10 @@ import cz.bald.sget.mobile.R
 
 class LoadPlaceholderFragment : Fragment() {
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.fragment_load_placeholder, container, false)
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? =
+        inflater.inflate(R.layout.fragment_load_placeholder, container, false)
 }

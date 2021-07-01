@@ -26,88 +26,91 @@ import kotlinx.coroutines.launch
 
 class TestActivity : AppCompatActivity(), FragmentChangeListener {
 
-  private lateinit var setting : TestSetting
-  private lateinit var fragment : QuestionFragment
-  private var receiverRegistered = false
-  private val downloadService = DownloadService()
-  private var downloadID: Long = -100
-  private var downloadComplete : Boolean = false
+    private lateinit var setting: TestSetting
+    private lateinit var fragment: QuestionFragment
+    private var receiverRegistered = false
+    private val downloadService = DownloadService()
+    private var downloadID: Long = -100
+    private var downloadComplete: Boolean = false
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_test)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_test)
 
-    if (savedInstanceState == null) {
-      swapFragment(LoadPlaceholderFragment(), false)
-      setting = intent.getParcelableExtra(SetupActivity.ARG_SETUP)
-      if (downloadService.requestStoragePermission(this)) {
-        downloadFile()
-      }
-      receiverRegistered = true
-      registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-    }
-  }
-
-  override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<String?>,
-    grantResults: IntArray
-  ) {
-    if (requestCode == REQUEST_STORAGE_PERMISSION) {
-      if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-        downloadFile()
-      } else {
-        createDefaultTest()
-        swapFragment(fragment, true)
-      }
-    }
-  }
-
-  override fun swapFragment(newFragment: Fragment, stack: Boolean) {
-    val transaction = supportFragmentManager.beginTransaction()
-      .replace(R.id.test_fragment_container, newFragment)
-
-    if (stack) {
-      transaction.addToBackStack(newFragment.toString())
-    }
-    transaction.commit()
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    if (receiverRegistered) unregisterReceiver(onDownloadComplete)
-  }
-
-  private val onDownloadComplete: BroadcastReceiver = object : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
-      val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-      if (downloadID == id) {
-        downloadComplete = true
-      }
-    }
-  }
-
-  private fun createDefaultTest() {
-    fragment = createQuestionFragment(downloadService.defaultTemplateTest(setting))
-  }
-
-  private fun downloadFile() {
-    CoroutineScope(Dispatchers.IO).launch {
-      if (!downloadService.fileAlreadyExists()) {
-        downloadID = downloadService.downloadFile(this@TestActivity, setting)
-        while (!downloadComplete) {
-          delay(100)
+        if (savedInstanceState == null) {
+            swapFragment(LoadPlaceholderFragment(), false)
+            setting = intent.getParcelableExtra(SetupActivity.ARG_SETUP)
+            if (downloadService.requestStoragePermission(this)) {
+                downloadFile()
+            }
+            receiverRegistered = true
+            registerReceiver(
+                onDownloadComplete,
+                IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+            )
         }
-      }
-    }.invokeOnCompletion {
-      Handler(Looper.getMainLooper()).post {
-        fragment = createQuestionFragment(downloadService.createTest())
-        swapFragment(fragment, true)
-      }
     }
-  }
 
-  private fun createQuestionFragment(test: Test) : QuestionFragment {
-    return QuestionFragment(test, 0, QuestionFragment.NO_QUESTION, QuestionFragment.NO_QUESTION)
-  }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                downloadFile()
+            } else {
+                createDefaultTest()
+                swapFragment(fragment, true)
+            }
+        }
+    }
+
+    override fun swapFragment(newFragment: Fragment, stack: Boolean) {
+        val transaction = supportFragmentManager.beginTransaction()
+            .replace(R.id.test_fragment_container, newFragment)
+
+        if (stack) {
+            transaction.addToBackStack(newFragment.toString())
+        }
+        transaction.commit()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (receiverRegistered) unregisterReceiver(onDownloadComplete)
+    }
+
+    private val onDownloadComplete: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            if (downloadID == id) {
+                downloadComplete = true
+            }
+        }
+    }
+
+    private fun createDefaultTest() {
+        fragment = createQuestionFragment(downloadService.defaultTemplateTest(setting))
+    }
+
+    private fun downloadFile() {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (!downloadService.fileAlreadyExists()) {
+                downloadID = downloadService.downloadFile(this@TestActivity, setting)
+                while (!downloadComplete) {
+                    delay(100)
+                }
+            }
+        }.invokeOnCompletion {
+            Handler(Looper.getMainLooper()).post {
+                fragment = createQuestionFragment(downloadService.createTest())
+                swapFragment(fragment, true)
+            }
+        }
+    }
+
+    private fun createQuestionFragment(test: Test): QuestionFragment {
+        return QuestionFragment(test, 0, QuestionFragment.NO_QUESTION, QuestionFragment.NO_QUESTION)
+    }
 }

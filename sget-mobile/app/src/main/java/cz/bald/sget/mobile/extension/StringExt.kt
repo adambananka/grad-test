@@ -6,10 +6,10 @@ import java.util.Date
 import java.util.Locale
 
 fun Date.toPrintable(): String {
-  val dateFormat = SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.getDefault())
-  return dateFormat.format(this)
+    val dateFormat = SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.getDefault())
+    return dateFormat.format(this)
 }
 
 fun TestSetting.toPrintable(): String {
-  return this.type.name + " / " + this.language + " / " + this.subject + " / " + this.year
+    return this.type.name + " / " + this.language + " / " + this.subject + " / " + this.year
 }

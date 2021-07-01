@@ -12,23 +12,23 @@ import kotlinx.android.synthetic.main.fragment_setup_review.view.*
 
 class ReviewFragment(private val testSetting: TestSetting) : Fragment() {
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    retainInstance = true
-    val view = inflater.inflate(R.layout.fragment_setup_review, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        retainInstance = true
+        val view = inflater.inflate(R.layout.fragment_setup_review, container, false)
 
-    view.setup_review_type_value.text = testSetting.type.name
-    view.setup_review_language_value.text = testSetting.language.name
-    view.setup_review_subject_value.text = testSetting.subject.getSubjectName()
-    view.setup_review_year_value.text = testSetting.year.toString()
-    view.setup_review_confirm_button.setOnClickListener{
-      val fcl = activity as SetupListener
-      fcl.finishSetup(testSetting)
+        view.setup_review_type_value.text = testSetting.type.name
+        view.setup_review_language_value.text = testSetting.language.name
+        view.setup_review_subject_value.text = testSetting.subject.getSubjectName()
+        view.setup_review_year_value.text = testSetting.year.toString()
+        view.setup_review_confirm_button.setOnClickListener {
+            val fcl = activity as SetupListener
+            fcl.finishSetup(testSetting)
+        }
+
+        return view
     }
-
-    return view
-  }
 }

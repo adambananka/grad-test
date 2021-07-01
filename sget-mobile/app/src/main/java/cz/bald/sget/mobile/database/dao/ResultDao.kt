@@ -7,9 +7,9 @@ import cz.bald.sget.mobile.model.Result
 @Dao
 interface ResultDao : AbstractDao<Result> {
 
-  @Query("SELECT * FROM result WHERE id == :id")
-  suspend fun getById(id: Long): Result
+    @Query("SELECT * FROM result WHERE id == :id")
+    suspend fun getById(id: Long): Result
 
-  @Query("SELECT * FROM result")
-  suspend fun getAll(): List<Result>
+    @Query("SELECT * FROM result")
+    suspend fun getAll(): List<Result>
 }

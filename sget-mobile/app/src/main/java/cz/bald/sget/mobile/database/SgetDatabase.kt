@@ -12,20 +12,22 @@ import cz.bald.sget.mobile.model.Result
 @TypeConverters(Converters::class)
 abstract class SgetDatabase : RoomDatabase() {
 
-  abstract fun resultDao(): ResultDao
+    abstract fun resultDao(): ResultDao
 
-  companion object {
-    private var INSTANCE: SgetDatabase? = null
+    companion object {
+        private var INSTANCE: SgetDatabase? = null
 
-    fun getInstance(context: Context): SgetDatabase {
-      if (INSTANCE == null) {
-        synchronized(SgetDatabase::class){
-          INSTANCE = Room.databaseBuilder(context.applicationContext,
-            SgetDatabase::class.java, "sget-database")
-            .build()
+        fun getInstance(context: Context): SgetDatabase {
+            if (INSTANCE == null) {
+                synchronized(SgetDatabase::class) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        SgetDatabase::class.java,
+                        "sget-database"
+                    ).build()
+                }
+            }
+            return INSTANCE!!
         }
-      }
-      return INSTANCE!!
     }
-  }
 }

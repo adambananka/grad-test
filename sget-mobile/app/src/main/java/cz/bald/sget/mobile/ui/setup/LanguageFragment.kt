@@ -16,29 +16,29 @@ import kotlinx.android.synthetic.main.fragment_setup_language.view.*
 
 class LanguageFragment(private val testSetting: TestSetting) : Fragment() {
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    retainInstance = true
-    val view = inflater.inflate(R.layout.fragment_setup_language, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        retainInstance = true
+        val view = inflater.inflate(R.layout.fragment_setup_language, container, false)
 
-    view.setup_language_slovak_button.setOnClickListener {
-      saveAndContinue(Language.SLOVAK, SlovakSubject.SLOVAK)
+        view.setup_language_slovak_button.setOnClickListener {
+            saveAndContinue(Language.SLOVAK, SlovakSubject.SLOVAK)
+        }
+
+        view.setup_language_czech_button.setOnClickListener {
+            saveAndContinue(Language.CZECH, CzechSubject.CZECH)
+        }
+
+        return view
     }
 
-    view.setup_language_czech_button.setOnClickListener {
-      saveAndContinue(Language.CZECH, CzechSubject.CZECH)
+    private fun saveAndContinue(lang: Language, subject: Subject) {
+        val fcl = activity as FragmentChangeListener
+        testSetting.language = lang
+        testSetting.subject = subject
+        fcl.swapFragment(SubjectFragment(testSetting), true)
     }
-
-    return view
-  }
-
-  private fun saveAndContinue(lang: Language, subject: Subject) {
-    val fcl = activity as FragmentChangeListener
-    testSetting.language = lang
-    testSetting.subject = subject
-    fcl.swapFragment(SubjectFragment(testSetting), true)
-  }
 }

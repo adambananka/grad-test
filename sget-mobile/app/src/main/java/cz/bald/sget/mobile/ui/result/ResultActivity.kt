@@ -23,79 +23,85 @@ import kotlinx.coroutines.launch
 
 class ResultActivity : AppCompatActivity() {
 
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var toggle: ActionBarDrawerToggle
 
-  private lateinit var results: List<Result>
+    private lateinit var results: List<Result>
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_result)
-    setupNavDrawer()
-    swapFragment(LoadPlaceholderFragment())
-    if (savedInstanceState == null) {
-      retrieveResultsAndShow()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_result)
+        setupNavDrawer()
+        swapFragment(LoadPlaceholderFragment())
+        if (savedInstanceState == null) {
+            retrieveResultsAndShow()
+        }
     }
-  }
 
-  private fun setupNavDrawer() {
-    val toolbar = findViewById<Toolbar>(R.id.toolbar)
-    setSupportActionBar(toolbar)
-    drawerLayout = findViewById(R.id.result_drawer_layout)
-    val navView = findViewById<NavigationView>(R.id.result_nav_view)
+    private fun setupNavDrawer() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        drawerLayout = findViewById(R.id.result_drawer_layout)
+        val navView = findViewById<NavigationView>(R.id.result_nav_view)
 
-    toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_menu_open, R.string.nav_menu_close)
-    drawerLayout.addDrawerListener(toggle)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.setHomeButtonEnabled(true)
+        toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.nav_menu_open,
+            R.string.nav_menu_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
-    navView.menu.findItem(R.id.nav_menu_maturita).setOnMenuItemClickListener {
-      startActivity(Intent(this, SetupActivity::class.java))
-      drawerLayout.closeDrawer(GravityCompat.START)
-      finish()
-      true
+        navView.menu.findItem(R.id.nav_menu_maturita).setOnMenuItemClickListener {
+            startActivity(Intent(this, SetupActivity::class.java))
+            drawerLayout.closeDrawer(GravityCompat.START)
+            finish()
+            true
+        }
+        navView.menu.findItem(R.id.nav_menu_results).setOnMenuItemClickListener {
+            startActivity(Intent(this, ResultActivity::class.java))
+            drawerLayout.closeDrawer(GravityCompat.START)
+            finish()
+            true
+        }
     }
-    navView.menu.findItem(R.id.nav_menu_results).setOnMenuItemClickListener {
-      startActivity(Intent(this, ResultActivity::class.java))
-      drawerLayout.closeDrawer(GravityCompat.START)
-      finish()
-      true
+
+    private fun retrieveResultsAndShow() {
+        CoroutineScope(Dispatchers.IO).launch {
+            results = SgetDatabase.getInstance(this@ResultActivity).resultDao().getAll()
+        }.invokeOnCompletion {
+            Handler(Looper.getMainLooper()).post {
+                swapFragment(ResultListFragment(results))
+            }
+        }
     }
-  }
 
-  private fun retrieveResultsAndShow() {
-    CoroutineScope(Dispatchers.IO).launch {
-      results = SgetDatabase.getInstance(this@ResultActivity).resultDao().getAll()
-    }.invokeOnCompletion {
-      Handler(Looper.getMainLooper()).post {
-        swapFragment(ResultListFragment(results))
-      }
+    private fun swapFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.result_fragment_container, fragment)
+            .commit()
     }
-  }
 
-  private fun swapFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction()
-      .replace(R.id.result_fragment_container, fragment)
-      .commit()
-  }
-
-  override fun onPostCreate(savedInstanceState: Bundle?) {
-    super.onPostCreate(savedInstanceState)
-    toggle.syncState()
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (toggle.onOptionsItemSelected(item)) {
-      return true
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        toggle.syncState()
     }
-    return super.onOptionsItemSelected(item)
-  }
 
-  override fun onBackPressed() {
-    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-      drawerLayout.closeDrawer(GravityCompat.START)
-    } else {
-      super.onBackPressed()
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
-  }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

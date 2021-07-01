@@ -20,85 +20,90 @@ import cz.bald.sget.mobile.ui.listener.SetupListener
 import cz.bald.sget.mobile.ui.result.ResultActivity
 import cz.bald.sget.mobile.ui.test.TestActivity
 
-class SetupActivity : AppCompatActivity(), FragmentChangeListener,
-  SetupListener {
+class SetupActivity : AppCompatActivity(), FragmentChangeListener, SetupListener {
 
-  companion object {
-    const val ARG_SETUP = "arg_setup"
-  }
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var toggle: ActionBarDrawerToggle
 
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var toggle: ActionBarDrawerToggle
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_setup)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_setup)
-
-    setupNavDrawer()
-    if (savedInstanceState == null) {
-      val setting = TestSetting(TestType.MATURITA, Language.SLOVAK, CzechSubject.CZECH, 0)
-      val fragment = StartFragment(setting)
-      swapFragment(fragment, false)
+        setupNavDrawer()
+        if (savedInstanceState == null) {
+            val setting = TestSetting(TestType.MATURITA, Language.SLOVAK, CzechSubject.CZECH, 0)
+            val fragment = StartFragment(setting)
+            swapFragment(fragment, false)
+        }
     }
-  }
 
-  override fun swapFragment(newFragment: Fragment, stack: Boolean) {
-    val transaction = supportFragmentManager.beginTransaction()
-      .replace(R.id.setup_fragment_container, newFragment)
-    if (stack) {
-      transaction.addToBackStack(newFragment.toString())
+    override fun swapFragment(newFragment: Fragment, stack: Boolean) {
+        val transaction = supportFragmentManager.beginTransaction()
+            .replace(R.id.setup_fragment_container, newFragment)
+        if (stack) {
+            transaction.addToBackStack(newFragment.toString())
+        }
+        transaction.commit()
     }
-    transaction.commit()
-  }
 
-  override fun finishSetup(setting: TestSetting) {
-    val intent = Intent(this, TestActivity::class.java)
-    intent.putExtra(ARG_SETUP, setting)
-    startActivity(intent)
-  }
-
-  private fun setupNavDrawer() {
-    val toolbar = findViewById<Toolbar>(R.id.toolbar)
-    setSupportActionBar(toolbar)
-    drawerLayout = findViewById(R.id.setup_drawer_layout)
-    val navView = findViewById<NavigationView>(R.id.setup_nav_view)
-
-    toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_menu_open, R.string.nav_menu_close)
-    drawerLayout.addDrawerListener(toggle)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.setHomeButtonEnabled(true)
-
-    navView.menu.findItem(R.id.nav_menu_maturita).setOnMenuItemClickListener {
-      startActivity(Intent(this, SetupActivity::class.java))
-      drawerLayout.closeDrawer(GravityCompat.START)
-      finish()
-      true
+    override fun finishSetup(setting: TestSetting) {
+        val intent = Intent(this, TestActivity::class.java)
+        intent.putExtra(ARG_SETUP, setting)
+        startActivity(intent)
     }
-    navView.menu.findItem(R.id.nav_menu_results).setOnMenuItemClickListener {
-      startActivity(Intent(this, ResultActivity::class.java))
-      drawerLayout.closeDrawer(GravityCompat.START)
-      finish()
-      true
-    }
-  }
 
-  override fun onPostCreate(savedInstanceState: Bundle?) {
-    super.onPostCreate(savedInstanceState)
-    toggle.syncState()
-  }
+    private fun setupNavDrawer() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        drawerLayout = findViewById(R.id.setup_drawer_layout)
+        val navView = findViewById<NavigationView>(R.id.setup_nav_view)
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (toggle.onOptionsItemSelected(item)) {
-      return true
-    }
-    return super.onOptionsItemSelected(item)
-  }
+        toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.nav_menu_open,
+            R.string.nav_menu_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
-  override fun onBackPressed() {
-    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-      drawerLayout.closeDrawer(GravityCompat.START)
-    } else {
-      super.onBackPressed()
+        navView.menu.findItem(R.id.nav_menu_maturita).setOnMenuItemClickListener {
+            startActivity(Intent(this, SetupActivity::class.java))
+            drawerLayout.closeDrawer(GravityCompat.START)
+            finish()
+            true
+        }
+        navView.menu.findItem(R.id.nav_menu_results).setOnMenuItemClickListener {
+            startActivity(Intent(this, ResultActivity::class.java))
+            drawerLayout.closeDrawer(GravityCompat.START)
+            finish()
+            true
+        }
     }
-  }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        toggle.syncState()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    companion object {
+        const val ARG_SETUP = "arg_setup"
+    }
 }

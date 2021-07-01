@@ -4,5 +4,5 @@ import cz.bald.sget.mobile.model.TestSetting
 
 interface SetupListener {
 
-  fun finishSetup(setting: TestSetting)
+    fun finishSetup(setting: TestSetting)
 }

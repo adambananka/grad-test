@@ -14,22 +14,23 @@ import kotlinx.android.synthetic.main.fragment_setup_start.view.*
 
 class StartFragment(private val testSetting: TestSetting) : Fragment() {
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    retainInstance = true
-    val view = inflater.inflate(R.layout.fragment_setup_start, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        retainInstance = true
+        val view = inflater.inflate(R.layout.fragment_setup_start, container, false)
 
-    when (testSetting.type) {
-      TestType.MATURITA -> view.setup_start_test_image.foreground = resources.getDrawable(R.drawable.maturita, context?.theme)
-    }
-    view.setup_start_start_button.setOnClickListener {
-      val fcl = activity as FragmentChangeListener
-      fcl.swapFragment(LanguageFragment(testSetting), true)
-    }
+        when (testSetting.type) {
+            TestType.MATURITA -> view.setup_start_test_image.foreground =
+                resources.getDrawable(R.drawable.maturita, context?.theme)
+        }
+        view.setup_start_start_button.setOnClickListener {
+            val fcl = activity as FragmentChangeListener
+            fcl.swapFragment(LanguageFragment(testSetting), true)
+        }
 
-    return view
-  }
+        return view
+    }
 }

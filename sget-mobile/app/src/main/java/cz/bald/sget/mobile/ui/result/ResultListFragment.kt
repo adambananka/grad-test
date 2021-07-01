@@ -13,25 +13,26 @@ import kotlinx.android.synthetic.main.fragment_result_list.view.*
 
 class ResultListFragment(private val results: List<Result>) : Fragment() {
 
-  private val resultAdapter = ResultAdapter(results)
+    private val resultAdapter = ResultAdapter(results)
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    retainInstance = true
-    val view = inflater.inflate(R.layout.fragment_result_list, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        retainInstance = true
+        val view = inflater.inflate(R.layout.fragment_result_list, container, false)
 
-    view.result_list_recycler.layoutManager = LinearLayoutManager(context)
-    view.result_list_recycler.adapter = resultAdapter
-    view.result_list_recycler.addItemDecoration(
-      DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        view.result_list_recycler.layoutManager = LinearLayoutManager(context)
+        view.result_list_recycler.adapter = resultAdapter
+        view.result_list_recycler.addItemDecoration(
+            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        )
 
-    if (results.isEmpty()) {
-      view.result_list_no_results.visibility = View.VISIBLE
+        if (results.isEmpty()) {
+            view.result_list_no_results.visibility = View.VISIBLE
+        }
+
+        return view
     }
-
-    return view
-  }
 }

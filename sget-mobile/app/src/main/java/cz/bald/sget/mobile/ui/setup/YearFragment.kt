@@ -13,23 +13,25 @@ import kotlinx.android.synthetic.main.fragment_setup_year.view.*
 
 class YearFragment(private val testSetting: TestSetting) : Fragment() {
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    retainInstance = true
-    val view = inflater.inflate(R.layout.fragment_setup_year, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        retainInstance = true
+        val view = inflater.inflate(R.layout.fragment_setup_year, container, false)
 
-    view.setup_year_year_list.adapter = ArrayAdapter<Int>(this.requireContext(),
-      android.R.layout.simple_list_item_1, testSetting.subject.getYearsOfSubject())
+        view.setup_year_year_list.adapter = ArrayAdapter<Int>(
+            this.requireContext(),
+            android.R.layout.simple_list_item_1, testSetting.subject.getYearsOfSubject()
+        )
 
-    view.setup_year_year_list.setOnItemClickListener { adapterView, _, i, _ ->
-      val fcl = activity as FragmentChangeListener
-      testSetting.year = adapterView.getItemAtPosition(i) as Int
-      fcl.swapFragment(ReviewFragment(testSetting), true)
+        view.setup_year_year_list.setOnItemClickListener { adapterView, _, i, _ ->
+            val fcl = activity as FragmentChangeListener
+            testSetting.year = adapterView.getItemAtPosition(i) as Int
+            fcl.swapFragment(ReviewFragment(testSetting), true)
+        }
+
+        return view
     }
-
-    return view
-  }
 }
